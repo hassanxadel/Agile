@@ -5,39 +5,44 @@ class ActivityDetailsController {
     private $activityDetailsCRUD;
 
     public function __construct() {
-    
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $database = "agile";
-
-        $this->activityDetailsCRUD = new ActivityDetailsCRUD($servername, $username, $password, $database);
+        $this->activityDetailsCRUD = new ActivityDetailsCRUD();
     }
 
     public function handleRequest() {
-
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-         
-            $activity_id = $_POST['activity_id'];
-            $user_id = $_POST['user_id'];
-            $Instructor = $_POST['inst_id'];
-            $start_date = $_POST['Start_date'];
-            $End_date = $_POST['End_date'];
-            $Activity_Name = $_POST['name'];
-            $attachment = $_POST['attachment'];
-
-            
-            $result = $this->activityDetailsCRUD->create($activity_id, $user_id, $Instructor, $start_date,$End_date, $Activity_Name ,$attachment );
-
-            
+            if (isset($_POST['id'])) {
+                // Update or delete operation
+                if (isset($_POST['update'])) {
+                    $result = $this->activityDetailsCRUD->update(
+                        $_POST['id'],
+                        $_POST['activity_id'],
+                        $_POST['user_id'],
+                        $_POST['inst_id'],
+                        $_POST['Start_date'],
+                        $_POST['End_date'],
+                        $_POST['Activity_Name'],
+                        $_POST['attachment']
+                    );
+                } elseif (isset($_POST['delete'])) {
+                    $result = $this->activityDetailsCRUD->delete($_POST['id']);
+                }
+            } else {
+                // Create operation
+                $result = $this->activityDetailsCRUD->create(
+                    $_POST['activity_id'],
+                    $_POST['user_id'],
+                    $_POST['inst_id'],
+                    $_POST['Start_date'],
+                    $_POST['End_date'],
+                    $_POST['Activity_Name'],
+                    $_POST['attachment']
+                );
+            }
             echo $result;
         }
-
-      
-        include 'activitydetails.html';
     }
 }
 
 $controller = new ActivityDetailsController();
 $controller->handleRequest();
-?>
+
