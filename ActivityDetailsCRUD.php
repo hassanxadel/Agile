@@ -3,18 +3,26 @@
 class ActivityDetailsCRUD {
     private $conn;
 
-    public function __construct($servername, $username, $password, $database) {
+    public function __construct() {
+        // Database connection parameters
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $database = "agileproject";
+
+        // Create connection
         $this->conn = new mysqli($servername, $username, $password, $database);
 
+        // Check connection
         if ($this->conn->connect_error) {
             die("Connection failed: " . $this->conn->connect_error);
         }
     }
 
     // Create
-    public function create($activity_id, $user_id, $Instructor, $start_date,$End_date, $Activity_Name ,$attachment ) {
-        $sql = "INSERT INTO activity_details (activity_id, user_id, activity_date, description, attachment)
-                VALUES ('$activity_id', '$user_id', '$Instructor', '$start_date','$End_date', '$attachment','$Activity_Name')";
+    public function create($activity_id, $user_id, $Instructor, $start_date, $End_date, $Activity_Name, $attachment) {
+        $sql = "INSERT INTO activity_details (activity_id, user_id, Instructor, start_date, end_date, Activity_Name, attachment)
+                VALUES ('$activity_id', '$user_id', '$Instructor', '$start_date', '$End_date', '$Activity_Name', '$attachment')";
 
         if ($this->conn->query($sql) === TRUE) {
             return "New record created successfully";
@@ -39,8 +47,8 @@ class ActivityDetailsCRUD {
     }
 
     // Update
-    public function update($id,$activity_id, $user_id, $Instructor, $start_date,$End_date, $Activity_Name ,$attachment) {
-        $sql = "UPDATE activity_details SET activity_id='$activity_id', user_id='$user_id', Instructor='$Instructor', start_date='$start_date', attachment='$attachment' WHERE id=$id";
+    public function update($id, $activity_id, $user_id, $Instructor, $start_date, $End_date, $Activity_Name, $attachment) {
+        $sql = "UPDATE activity_details SET activity_id='$activity_id', user_id='$user_id', Instructor='$Instructor', start_date='$start_date', end_date='$End_date', Activity_Name='$Activity_Name', attachment='$attachment' WHERE id=$id";
 
         if ($this->conn->query($sql) === TRUE) {
             return "Record updated successfully";
@@ -65,4 +73,4 @@ class ActivityDetailsCRUD {
     }
 }
 
-?>
+
