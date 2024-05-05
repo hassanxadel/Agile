@@ -14,14 +14,13 @@ class ActivityDetailsController {
                 // Update or delete operation
                 if (isset($_POST['update'])) {
                     $result = $this->activityDetailsCRUD->update(
-                        $_POST['id'],
                         $_POST['activity_id'],
                         $_POST['user_id'],
-                        $_POST['inst_id'],
-                        $_POST['Start_date'],
-                        $_POST['End_date'],
+                        $_POST['start_date'],
+                        $_POST['end_date'],
                         $_POST['Activity_Name'],
-                        $_POST['attachment']
+                        $_POST['attachment'],
+                        $_POST['activity_field']
                     );
                 } elseif (isset($_POST['delete'])) {
                     $result = $this->activityDetailsCRUD->delete($_POST['id']);
@@ -31,13 +30,14 @@ class ActivityDetailsController {
                 $result = $this->activityDetailsCRUD->create(
                     $_POST['activity_id'],
                     $_POST['user_id'],
-                    $_POST['inst_id'],
-                    $_POST['Start_date'],
-                    $_POST['End_date'],
+                    $_POST['start_date'],
+                    $_POST['end_date'],
                     $_POST['Activity_Name'],
-                    $_POST['attachment']
+                    $_POST['attachment'],
+                    $_POST['activity_field'],
                 );
             }
+            $result = isset($result) ? $result : "";
             echo $result;
         }
     }
