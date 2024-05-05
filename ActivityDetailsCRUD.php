@@ -2,7 +2,7 @@
 
 class ActivityDetailsCRUD {
     private $conn;
-
+    
     public function __construct() {
         // Database connection parameters
         $servername = "localhost";
@@ -20,9 +20,9 @@ class ActivityDetailsCRUD {
     }
 
     // Create
-    public function create($activity_id, $user_id, $Instructor, $start_date, $End_date, $Activity_Name, $attachment) {
-        $sql = "INSERT INTO activity_details (activity_id, user_id, Instructor, start_date, end_date, Activity_Name, attachment)
-                VALUES ('$activity_id', '$user_id', '$Instructor', '$start_date', '$End_date', '$Activity_Name', '$attachment')";
+    public function create($activity_id, $user_id, $start_date, $end_date, $Activity_Name, $attachment,$activity_field) {
+        $sql = "INSERT INTO activity_details (activity_id, user_id ,start_date, end_date, Activity_Name, attachment, activity_field)
+                VALUES ('$activity_id', '$user_id', '$start_date', '$end_date', '$Activity_Name', '$attachment', '$activity_field')";
 
         if ($this->conn->query($sql) === TRUE) {
             return "New record created successfully";
@@ -47,8 +47,8 @@ class ActivityDetailsCRUD {
     }
 
     // Update
-    public function update($id, $activity_id, $user_id, $Instructor, $start_date, $End_date, $Activity_Name, $attachment) {
-        $sql = "UPDATE activity_details SET activity_id='$activity_id', user_id='$user_id', Instructor='$Instructor', start_date='$start_date', end_date='$End_date', Activity_Name='$Activity_Name', attachment='$attachment' WHERE id=$id";
+    public function update($activity_id, $user_id, $start_date, $end_date, $Activity_Name, $attachment,$activity_field) {
+        $sql = "UPDATE activity_details SET activity_id='$activity_id', user_id='$user_id', start_date='$start_date', end_date='$end_date', Activity_Name='$Activity_Name', attachment='$attachment' ,activity_field='$activity_field' WHERE activity_id=$activity_id";
 
         if ($this->conn->query($sql) === TRUE) {
             return "Record updated successfully";
@@ -60,9 +60,9 @@ class ActivityDetailsCRUD {
     // Delete
     public function delete($id) {
         $sql = "DELETE FROM activity_details WHERE id=$id";
-
+    
         if ($this->conn->query($sql) === TRUE) {
-            return "Record deleted successfully";
+            return "Record with ID $id deleted successfully";
         } else {
             return "Error deleting record: " . $this->conn->error;
         }
