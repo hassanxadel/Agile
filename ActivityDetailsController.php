@@ -10,11 +10,11 @@ class ActivityDetailsController {
 
     public function handleRequest() {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            if (isset($_POST['id'])) {
+            if (isset($_POST['Id'])) {
                 // Update or delete operation
-                if (isset($_POST['update'])) {
-                    $result = $this->activityDetailsCRUD->update(
-                        $_POST['activity_id'],
+                if(isset($_POST['create'])){
+                    $result = $this->activityDetailsCRUD->create(
+                        $_POST['Id'],
                         $_POST['user_id'],
                         $_POST['start_date'],
                         $_POST['end_date'],
@@ -22,21 +22,23 @@ class ActivityDetailsController {
                         $_POST['attachment'],
                         $_POST['activity_field']
                     );
-                } elseif (isset($_POST['delete'])) {
+
+                } 
+                elseif (isset($_POST['update'])) {
+                    $result = $this->activityDetailsCRUD->update(
+                        $_POST['Id'],
+                        $_POST['user_id'],
+                        $_POST['start_date'],
+                        $_POST['end_date'],
+                        $_POST['Activity_Name'],
+                        $_POST['attachment'],
+                        $_POST['activity_field']
+                    );
+                }
+                elseif (isset($_POST['delete'])) {
                     $result = $this->activityDetailsCRUD->delete($_POST['id']);
                 }
-            } else {
-                // Create operation
-                $result = $this->activityDetailsCRUD->create(
-                    $_POST['activity_id'],
-                    $_POST['user_id'],
-                    $_POST['start_date'],
-                    $_POST['end_date'],
-                    $_POST['Activity_Name'],
-                    $_POST['attachment'],
-                    $_POST['activity_field'],
-                );
-            }
+            } 
             $result = isset($result) ? $result : "";
             echo $result;
         }
