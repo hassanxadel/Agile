@@ -10,14 +10,14 @@
 
     <h3>Create Activity</h3>
     <form action="ActivityDetailsController.php" method="post">
-        Activity ID: <input type="text" name="activity_id"><br>
+        Activity ID: <input type="text" name="Id"><br>
         Activity Name: <input type="text" name="Activity_Name"><br>
         Instructor ID: <input type="text" name="user_id"><br>
         Attachment: <input type="text" name="attachment"><br>
         Start Date: <input type="date" name="start_date"><br>
         End Date: <input type="date" name="end_date"><br>
         Activity Field: <input type="text" name="activity_field"><br>
-        <input type="submit" value="Create">
+        <input type="submit" name="create" value="Create">
     </form>
 
 <table>
@@ -82,7 +82,7 @@
     if (!empty($activityDetails)) {
         echo "<ul>";
         foreach ($activityDetails as $detail) {
-            echo "<li> ". ", Activity ID: " . $detail['activity_id'] ."<br>". ", Instructor ID: " . $detail['user_id']."<br>" . ", Start Date: " . $detail['start_date']."<br>" . ", End Date: " . $detail['end_date'] ."<br>". ", Activity Name: " . $detail['Activity_Name'] ."<br>". ", Attachment: " . $detail['attachment']."<br>".",Activity Field:" . $detail['activity_field'] ."</li>";
+            echo "<li> ". ", Activity ID: " . $detail['Id'] ."<br>". ", Instructor ID: " . $detail['user_id']."<br>" . ", Start Date: " . $detail['start_date']."<br>" . ", End Date: " . $detail['end_date'] ."<br>". ", Activity Name: " . $detail['Activity_Name'] ."<br>". ", Attachment: " . $detail['attachment']."<br>".",Activity Field:" . $detail['activity_field'] ."</li>";
         }
         echo "</ul>";
     } else {
@@ -92,20 +92,20 @@
 
     <h3>Update Activity Detail</h3>
     <form action="ActivityDetailsController.php" method="post">
-        Activity ID: <input type="text" name="activity_id"><br>
+        Activity ID: <input type="text" name="Id"><br>
         Activity Name: <input type="text" name="Activity_Name"><br>
         Instructor ID: <input type="text" name="user_id"><br>
         Attachment: <input type="text" name="attachment"><br>
         Start Date: <input type="date" name="start_date"><br>
         End Date: <input type="date" name="end_date"><br>
         Activity Field: <input type="text" name="activity_field"><br>
-        <input type="submit" value="Update">
+        <input type="submit" name="update" value="Update">
     </form>
 
     <h3>Delete Activity Detail</h3>
     <form action="ActivityDetailsController.php" method="post">
         ID: <input type="text" name="id"><br>
-        <input type="submit" value="Delete">
+        <input type="submit" name="delete" value="Delete">
     </form>
 </body>
 </html>
