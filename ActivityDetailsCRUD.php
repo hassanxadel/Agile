@@ -34,7 +34,7 @@ class ActivityDetailsCRUD {
         }
     }
 
-    public function createActivityObject($row) {
+    public static function createActivityObject($row) {
         $activity = new Activity();
         $activity->Id = $row['Id'];
         $activity->user_id = $row['user_id'];
@@ -47,7 +47,7 @@ class ActivityDetailsCRUD {
         return $activity;
     }
 
-    public function createFeedbackObject($row) {
+    public static function createFeedbackObject($row) {
         $feedback = new Feedback();
         $feedback->Id = $row['Id'];
         $feedback->FullName = $row['FullName'];
@@ -57,6 +57,7 @@ class ActivityDetailsCRUD {
 
         return $feedback;
     }
+
     public function create(Activity $activity) {
         $sql = "INSERT INTO activity_details (Id, user_id, start_date, end_date, Activity_Name, attachment, Major)
                 VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -105,7 +106,7 @@ class ActivityDetailsCRUD {
 
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
-                $activity = $this->createActivityObject($row);
+                $activity = self::createActivityObject($row);
                 $activities[] = $activity;
             }
         }
